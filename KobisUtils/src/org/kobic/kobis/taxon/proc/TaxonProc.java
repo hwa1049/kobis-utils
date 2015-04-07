@@ -2,9 +2,12 @@ package org.kobic.kobis.taxon.proc;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.kobic.kobis.taxon.vo.NameWithTaxonIdVO;
 
 public class TaxonProc {
+	private static Logger logger = Logger.getLogger(TaxonProc.class);
+
 	private String name;
 	private String currentStatus;
 	private List<NameWithTaxonIdVO> list;

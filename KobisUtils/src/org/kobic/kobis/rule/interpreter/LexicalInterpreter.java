@@ -8,11 +8,15 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+import org.kobic.kobis.rule.dao.RuleDAOService;
 import org.kobic.kobis.rule.vo.RuleParamObj;
 import org.kobic.kobis.rule.vo.RuleQueryVO;
 import org.kobic.kobis.util.Utils;
 
 public class LexicalInterpreter {
+	private static Logger logger = Logger.getLogger(LexicalInterpreter.class);
+
 	private static LexicalInterpreter interpreter;
 	
 	public static LexicalInterpreter getInstance() {
@@ -148,7 +152,7 @@ public class LexicalInterpreter {
 	}
 
 	private String[] functionParameters(String str) {
-		String[] div = str.split(",");
+		String[] div = str.trim().split(",");
 		
 		return div;
 	}

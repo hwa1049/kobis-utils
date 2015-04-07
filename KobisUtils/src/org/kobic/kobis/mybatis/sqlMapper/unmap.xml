@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kobic.kobis.unmapped.mapper.UnmappedMapper">
-	<select id="getAccessionNum" parameterType="java.lang.String" resultType="java.util.Map">
-		SELECT accession_num FROM T2_UnMappedUnMappedCommon
+	<select id="getAccessionNum" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT accession_num FROM T2_UnMappedCommon
 		WHERE accession_num=#{accession_num} AND ins_cd=#{ins_cd}
 	</select>
 
@@ -38,8 +38,8 @@
 			accession_num, individual_type, individual_maintenance, dist_yn, dist_url, reference, application_no, reg_no 
 		)
 		VALUES( 
-			#{access_num}, #{individual_type}, #{individual_maintenance}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
+			#{access_num}, #{individualType}, #{individualMaintenance}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
 		)
 	</insert>
 
@@ -50,9 +50,9 @@
 			, dist_yn, dist_url, reference, application_no, reg_no
 		)
 		VALUES(
-			#{access_num}, #{morphology}, #{kor_addr}, #{eng_addr}, #{gps.latitude}, #{gps.longitude}, #{collect_user}
-			, #{collect_dt}, #{nation}, #{ocean}, #{island}, #{specimen_type}, #{kind_of_specimen}, #{public_yn} 
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
+			#{access_num}, #{morphology}, #{korAddr}, #{engAddr}, #{gps.latitude}, #{gps.longitude}, #{collectUser}
+			, #{collectDt}, #{nation}, #{ocean}, #{island}, #{specimenType}, #{kindOfSpecimen}, #{publicYn} 
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
 		)
 	</insert>
 
@@ -79,10 +79,10 @@
 			, store_no, store_place 
 		)
 		VALUES( 
-			#{access_num}, #{source_type}, #{disease}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}
-			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{store.store_no}, #{store.store_place} 
+			#{access_num}, #{source}, #{disease}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}
+			, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
+			, #{store.storeNo}, #{store.storePlace} 
 	)
 	</insert>
   	
@@ -93,10 +93,10 @@
 			, store_no, store_place 
 		)
 		VALUES( 
-			#{access_num}, #{seed_status}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}
-			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{store.store_no}, #{store.store_place}
+			#{access_num}, #{seedStatus}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}
+			, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
+			, #{store.storeNo}, #{store.storePlace}
 		 )
 	</insert>
 	
@@ -107,15 +107,15 @@
 			, store_no, store_place 
 		)
 		VALUES(
-			#{access_num}, #{embryo_type}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{store.store_no}, #{store.store_place}
+			#{access_num}, #{embryo}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
+			, #{store.storeNo}, #{store.storePlace}
 		)
 	</insert>
 
 	<insert id="insertT2UnmappedDnaRnaProteinDerivatives" parameterType="D1_DnaRnaProteinDerivative">
-		INSERT INTO T2_UnMappedDNA_RNA_Protein_Derivatives
+		INSERT INTO T2_UnMapped_DNA_RNA_Protein_Derivatives
 		( 
 			accession_num, source, detail_type
 			, deposit_type, sample_type, sample_detail, sample_etc
@@ -124,41 +124,41 @@
 			, store_no, store_place
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{detail_type}
-			, #{deposit_type}, #{sample_type}, #{sample_detail}, #{sample_etc}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{store.store_no}, #{store.store_place}
+			#{access_num}, #{source}, #{detailType}
+			, #{depositType}, #{sample.sampleType}, #{sample.sampleDetail}, #{sample.sampleEtc}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.parentNo}, #{extra.patent.regNo} 
+			, #{store.storeNo}, #{store.storePlace}
 		)
 	</insert>
 
 	<insert id="insertT2UnmappedStrain" parameterType="D1_Strain">
 		INSERT INTO T2_UnMappedStrain( 
-			accession_num, source, pathogenic_yn, strain_name
-			, dist_yn, dist_url, reference
-			, application_no, reg_no
-			, culture_medium_name, condition, succeed_dt, succeed_time
+			`accession_num`, `source`, `pathogenic_yn`, `strain_name`
+			, `dist_yn`, `dist_url`, `reference`
+			, `application_no`, `reg_no`
+			, `culture_medium_name`, `condition`, `succeed_dt`, `succeed_time`
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{pathogenic_yn}, #{strain_name}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{culture.culture_medium_name}, #{culture.condition}, #{culture.succeed_dt}, #{culture.succeed_time} 
+			#{access_num}, #{source}, #{pathogenicYn}, #{strainName}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.parentNo}, #{extra.patent.regNo} 
+			, #{culture.cultureMediumName}, #{culture.condition}, #{culture.succeedDt}, #{culture.succeedTime} 
 		)
 	</insert>
 
 	<insert id="insertT2UnmappedCellStrain" parameterType="D1_Cellstrin">
 		INSERT INTO T2_UnMappedCellStrain( 
-			accession_num, source, cell_type, cell_name
-			, dist_yn, dist_url, reference
-			, application_no, reg_no
-			, culture_medium_name, condition, succeed_dt, succeed_time 
+			`accession_num`, `source`, `cell_type`, `cell_name`
+			, `dist_yn`, `dist_url`, `reference`
+			, `application_no`, `reg_no`
+			, `culture_medium_name`, `condition`, `succeed_dt`, `succeed_time` 
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{cell_type}, #{cell_name} 
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{culture.culture_medium_name}, #{culture.condition}, #{culture.succeed_dt}, #{culture.succeed_time}
+			#{access_num}, #{source}, #{cellLineType}, #{cellLineName} 
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.parentNo}, #{extra.patent.regNo} 
+			, #{culture.cultureMediumName}, #{culture.condition}, #{culture.succeedDt}, #{culture.succeedTime}
 		)
 	</insert>
 	
@@ -169,10 +169,10 @@
 			, culture_medium_name, condition, succeed_dt, succeed_time
 		)
 		VALUES( 
-			#{access_num}, #{body_fluid_type}
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no} 
-			, #{culture.culture_medium_name}, #{culture.condition}, #{culture.succeed_dt}, #{culture.succeed_time}
+			#{access_num}, #{bodyFluidType}
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
+			, #{culture.cultureMediumName}, #{culture.condition}, #{culture.succeedDt}, #{culture.succeedTime}
 		 )
 	</insert>
 	
@@ -182,8 +182,8 @@
 			, reference, application_no, reg_no 
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{protein_name}, #{accession_no}, #{sequence}, #{open_yn}, #{open_url}
-			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no}
+			#{access_num}, #{source}, #{proteinName}, #{accessionNo}, #{sequence}, #{open.openYn}, #{open.openUrl}
+			, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo}
 		)
 	</insert>
 
@@ -193,8 +193,8 @@
 			, reference, application_no, reg_no 
 		)
 		VALUES(
-			#{access_num}, #{source}, #{data_type}, #{expression_data}, #{open_yn}, #{open_url}
-			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
+			#{access_num}, #{source}, #{dataType}, #{sequence}, #{open.openYn}, #{open.openUrl}
+			, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
 		)
 	</insert>
 
@@ -204,8 +204,8 @@
 			, reference, application_no, reg_no 
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{structure_type}, #{accession_no}, #{pdb_format}, #{open_yn}, #{open_url}
-			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no} 
+			#{access_num}, #{source}, #{structureType}, #{accessionNo}, #{pdbFormat}, #{open.openYn}, #{open.openUrl}
+			, #{extra.ref.reference}, #{extra.patent.applicationNo}, #{extra.patent.regNo} 
 		)
 	</insert>
 
@@ -219,8 +219,8 @@
 		)
 		VALUES(
 			#{access_num}, #{source}, #{molecular_type}, #{data_type}
-			, #{gene_name}, #{accession_no}, #{sequence.sequence}, #{open_yn}, #{open_url}
-			, #{gene_full_naem}, #{gene_alias} 
+			, #{sequence.geneName}, #{sequence.accessionNo}, #{sequence.sequence}, #{open.openYn}, #{open.openUrl}
+			, #{gene_full_name}, #{gene_alias} 
 			, #{extra.ref.reference}, #{extra.patent.application_no}, #{extra.patent.reg_no}
 		)
 	</insert>
@@ -245,9 +245,9 @@
 			, application_no, reg_no 
 		)
 		VALUES( 
-			#{access_num}, #{source}, #{solvent}, #{extract_time} 
-			, #{extra.dist.dist_yn}, #{extra.dist.dist_url}, #{extra.ref.reference}
-			, #{extra.patent.application_no}, #{extra.patent.reg_no}
+			#{access_num}, #{source}, #{extract.solvent}, #{extract.extractTime} 
+			, #{extra.dist.distYn}, #{extra.dist.distUrl}, #{extra.ref.reference}
+			, #{extra.patent.parentNo}, #{extra.patent.regNo}
 		)
 	</insert>
 </mapper>

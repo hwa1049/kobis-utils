@@ -6,11 +6,14 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
 import org.kobic.kobis.common.dao.CommonDAOService;
 import org.kobic.kobis.rule.mapper.RuleMapper;
 import org.kobic.kobis.rule.vo.RuleQueryVO;
 
 public class RuleDAOService extends CommonDAOService implements RuleDAO{
+	private static Logger logger = Logger.getLogger(RuleDAOService.class);
+
     public RuleDAOService(SqlSessionFactory sqlSessionFactory){
         super( sqlSessionFactory );
     }
@@ -30,7 +33,7 @@ public class RuleDAOService extends CommonDAOService implements RuleDAO{
     	try {
     		 list = ruleMapper.getRulesByInsId( map );
     	}catch(Exception e) {
-    		e.printStackTrace();
+    		logger.error( e.getMessage() );
     	}finally{
     		session.close();
     	}

@@ -68,4 +68,8 @@ public interface KobisMapper {
 	public String getNewEtcId( String access_num );
 	public String getNewExtractionId( String access_num );
 	public String getNewStructureId( String access_num );
+	
+	
+	
+	public int insertL3ExtendLink( Map<String, String> map );
 }

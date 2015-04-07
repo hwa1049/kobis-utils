@@ -5,13 +5,17 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
 import org.kobic.kobis.common.dao.CommonDAOService;
+import org.kobic.kobis.rule.interpreter.LexicalInterpreter;
 import org.kobic.kobis.taxon.mapper.TaxonMapper;
 import org.kobic.kobis.taxon.vo.NameWithTaxonIdVO;
 import org.kobic.kobis.taxon.vo.PhylogeneticTreeVO;
 import org.kobic.kobis.util.Utils;
 
 public class TaxonDAOService extends CommonDAOService implements TaxonDAO{
+	private static Logger logger = Logger.getLogger(TaxonDAOService.class);
+
     public TaxonDAOService(SqlSessionFactory sqlSessionFactory){
         super(sqlSessionFactory);
     }
@@ -141,7 +145,7 @@ public class TaxonDAOService extends CommonDAOService implements TaxonDAO{
     		session.commit();
     	}catch(Exception e) {
     		ret = 0;
-    		e.printStackTrace();
+    		logger.error( e.getMessage() );
     		session.rollback();
     	}finally{
     		session.close();

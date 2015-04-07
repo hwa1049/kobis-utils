@@ -44,7 +44,7 @@ public class Functions {
 	public static String CONCAT(String[] list) throws Exception {
 		String ret="";
 		for(String str:list) {
-			ret += str.replace("\"", "").trim();
+			ret += str.trim().replace("\"", "");
 		}
 		return KeywordDictionary.DBL_QUOTATION + ret + KeywordDictionary.DBL_QUOTATION;
 	}

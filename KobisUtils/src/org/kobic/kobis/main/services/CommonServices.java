@@ -8,6 +8,7 @@ package org.kobic.kobis.main.services;
 
 //import org.apache.commons.beanutils.BeanUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.kobic.kobis.file.excel.obj.XCommonSheetObj;
@@ -18,6 +19,8 @@ import org.kobic.kobis.rule.Rule;
 import org.kobic.kobis.taxon.proc.MultipleClassificationProc;
 
 public class CommonServices extends AbstractKobisServices{
+	private static Logger logger = Logger.getLogger(CommonServices.class);
+	
 //	private HashMap<String, XCommonSheetObj> mapped;
 //	private HashMap<String, XCommonSheetObj> unmapped;
 
@@ -84,33 +87,28 @@ public class CommonServices extends AbstractKobisServices{
 			for( int j=3; j<=this.getSheet().getLastRowNum(); j++ ) {
 				XSSFRow dataRow = this.getSheet().getRow(j);
 
-//				String dataRow2 = dataRow.getCell(0).toString();
-//				if( dataRow.getCell(0).toString().equals("002-080") ) {
-//					System.out.println("Hello");
-//				}else{
-//					continue;
-//				}
-//				totalCnt++;
-//
-//				if( totalCnt < 84 )	continue;
-
 				XCommonSheetObj commonSheetRecordObj = XCommonSheetObj.getNewInstance( dataRow );
-
-				D1CommonVO d1CommonVo = new D1CommonVO( commonSheetRecordObj );
-				d1CommonVo.setIns_cd( this.getInsCd() );
-
-				// Rule 적용
-				Rule rule = new Rule( d1CommonVo.getIns_cd() );
-				rule.rule( d1CommonVo );
-
-				String scientificName = d1CommonVo.getScientificName();
 				
-				MultipleClassificationProc classifyObj = new MultipleClassificationProc( this.getSessionFactory() );
-
-				classifyObj.validate( scientificName );
-
-				boolean canValidateToDatabase = classifyObj.updateDatabase( d1CommonVo, scientificName );
-				if ( canValidateToDatabase ){	mappedCnt++;	}
+//				String accession_num = Utils.nullToEmpty( this.getKobisService().getAccessionNum( commonSheetRecordObj.getAccess_num(), this.getInsCd() ) );
+//				String unaccession_num = Utils.nullToEmpty( this.getUnmapService().getAccessionNum( commonSheetRecordObj.getAccess_num(), this.getInsCd() ) );
+//
+//				if( accession_num.isEmpty() && unaccession_num.isEmpty() ) {
+					D1CommonVO d1CommonVo = new D1CommonVO( commonSheetRecordObj );
+					d1CommonVo.setIns_cd( this.getInsCd() );
+	
+					// Rule 적용
+					Rule rule = new Rule( d1CommonVo.getIns_cd() );
+					rule.rule( d1CommonVo );
+	
+					String scientificName = d1CommonVo.getScientificName();
+					
+					MultipleClassificationProc classifyObj = new MultipleClassificationProc( this.getSessionFactory() );
+	
+					classifyObj.validate( scientificName );
+	
+					boolean canValidateToDatabase = classifyObj.updateDatabase( d1CommonVo, scientificName );
+					if ( canValidateToDatabase ){	mappedCnt++;	}
+//				}
 
 				
 				

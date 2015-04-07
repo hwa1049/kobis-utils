@@ -52,7 +52,7 @@
 			name_txt
 			,tax_id
 		FROM X1_NcbiTaxonomyName
-		WHERE MATCH(name_txt) AGAINST(#{scientific_name} IN BOOLEAN MODE)
+		WHERE MATCH(name_txt) AGAINST( #{scientific_name} )
 		HAVING name_txt=#{scientfic_name}
 	</select>
 	
@@ -61,7 +61,7 @@
 			name_txt
 			, tax_id
 		FROM X1_GbifTaxonomyName
-		WHERE MATCH(name_txt) AGAINST(#{scientific_name} IN BOOLEAN MODE)
+		WHERE MATCH(name_txt) AGAINST( #{scientific_name} )
 		HAVING name_txt=#{scientfic_name}
 	</select>
 
@@ -70,7 +70,7 @@
 			name_txt
 			, tax_id
 		FROM X1_ItisTaxonomyName
-		WHERE MATCH(name_txt) AGAINST(#{scientific_name} IN BOOLEAN MODE)
+		WHERE MATCH(name_txt) AGAINST( #{scientific_name} )
 		HAVING name_txt=#{scientfic_name}
 	</select>
 
@@ -79,7 +79,7 @@
 			name_txt
 			, tax_id
 		FROM X1_KobicTaxonomyName
-		WHERE MATCH(name_txt) AGAINST(#{scientific_name} IN BOOLEAN MODE)
+		WHERE MATCH(name_txt) AGAINST( #{scientific_name} )
 		HAVING name_txt=#{scientfic_name}
 	</select>
 
